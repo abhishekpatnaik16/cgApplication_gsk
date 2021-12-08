@@ -1,5 +1,11 @@
 import {Database} from "./db"
 
+export class NotFoundException extends Error {
+}
+
+export class DeletionFailedException extends Error {
+}
+
 export class DatabaseAdapter<ID, DATA> {
 	private _db: Database
 
@@ -13,9 +19,8 @@ export class DatabaseAdapter<ID, DATA> {
 		if (fetched) {
 			return fetched
 		} else {
-			throw new Error(`Failed to get with id(${id})`)
+			throw new NotFoundException(`Failed to get with id(${id})`)
 		}
-
 	}
 
 	getAll(): DATA[] {
@@ -24,7 +29,7 @@ export class DatabaseAdapter<ID, DATA> {
 		if (Array.isArray(fetched)) {
 			return fetched
 		} else {
-			throw new Error("Failed to get all")
+			throw new NotFoundException("Failed to get all")
 		}
 	}
 
@@ -48,7 +53,7 @@ export class DatabaseAdapter<ID, DATA> {
 		if (this._db.delete(id as unknown as string)) {
 			return fetched
 		} else {
-			throw new Error(`Failed to delete with id(${id})`)
+			throw new DeletionFailedException(`Failed to delete with id(${id})`)
 		}
 	}
 }

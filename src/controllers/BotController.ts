@@ -19,11 +19,7 @@ export class BotController {
 	}
 
 	mount(server: Express) {
-		server.use("/bots", this.router)
-	}
-
-	get router() {
-		return this._router
+		server.use("/bots", this._router)
 	}
 
 	private get deleteBotById(): RequestHandler {

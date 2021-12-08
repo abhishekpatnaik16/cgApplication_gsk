@@ -19,8 +19,12 @@ server.use(RequestLogger)
 const db: Database = new Map<string, any>()
 
 /* Seed the database */
+logger.debug("Seeding database...")
 seedData.forEach(d => {
 	db.set(d.id, d)
+})
+logger.debug("Seeding complete", {
+	entriesAdded: seedData.length
 })
 
 /* Setup controllers */
@@ -33,6 +37,18 @@ server.use(ErrorHandler)
 /* Start server */
 server.listen(5000, () => {
 	logger.info("Server is up and running at http://localhost:5000")
+})
+
+/* Handling unhandled rejections */
+process.on("unhandledRejection", (reason, promise) => {
+	logger.critical("Unhandled rejection exception occurred", {
+		reason
+	})
+	promise.catch(rejectionError => {
+		logger.critical("Handled unhandled promise", {
+			rejectionError
+		})
+	})
 })
 
 /* Handle graceful shutdown */

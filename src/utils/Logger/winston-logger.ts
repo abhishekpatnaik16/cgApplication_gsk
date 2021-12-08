@@ -3,6 +3,7 @@ import {winstonLoggerLevels} from "./LoggerLevel"
 
 export const winstonLogger = winston.createLogger({
 	levels: winstonLoggerLevels,
+	level: "debug",
 	transports: [
 		new winston.transports.Console({
 			format: winston.format.combine(

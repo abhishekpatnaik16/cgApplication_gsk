@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "prestart": "tsc",
-    "start": "node src/index"
+    "prestart": "npm run clean && npm run build",
+    "lint": "eslint --ext .ts --debug ./src",
+    "lint:fix": "eslint --fix --ext .ts --debug ./src",
+    "build": "tsc",
+    "start": "node build/index",
+    "clean": "tsc --build --clean && rimraf build"
   },
   "author": "Abhishek Patnaik <abhishekpatnaik16>",
   "repository": {

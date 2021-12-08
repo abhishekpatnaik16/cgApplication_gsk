@@ -16,7 +16,7 @@ export const RequestLogger: RequestHandler = (req, res, next) => {
 	} catch (e) {
 		error = e
 	} finally {
-		const message = `${req.method} ${res.statusCode} ${req.originalUrl}`
+		const message = `${req.method} ${req.originalUrl} ${res.statusCode}`
 		const meta = {
 			method: req.method,
 			url: req.url,
